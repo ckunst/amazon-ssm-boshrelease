@@ -1,0 +1,11 @@
+releases:
+  - name: amazon-ssm-boshrelease
+    version: 1
+addons:
+  - name: amazon-ssm-agent-xenial
+    jobs:
+      - name: amazon-ssm-agent
+        release: amazon-ssm-boshrelease
+    include:
+      stemcell:
+        - os: ubuntu-xenial

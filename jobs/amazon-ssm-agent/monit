@@ -1,0 +1,5 @@
+check process amazon-ssm-agent
+  with pidfile /var/vcap/sys/run/amazon-ssm-agent/pid
+  start program "/var/vcap/jobs/amazon-ssm-agent/bin/ctl start"
+  stop program "/var/vcap/jobs/amazon-ssm-agent/bin/ctl stop"
+  group vcap

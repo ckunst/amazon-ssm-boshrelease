@@ -1,0 +1,7 @@
+---
+name: amazon-ssm-agent
+
+dependencies: []
+
+files:
+  - amazon-ssm-agent.deb

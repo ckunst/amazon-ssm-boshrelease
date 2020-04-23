@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+RUN_DIR=/var/vcap/sys/run/amazon-ssm-agent
+LOG_DIR=/var/vcap/sys/log/amazon-ssm-agent
+PIDFILE=${RUN_DIR}/pid
+
+case $1 in
+
+  start)
+    if [[ ! -f /usr/bin/amazon-ssm-agent ]]; then
+      dpkg -i /var/vcap/packages/amazon-ssm-agent/amazon-ssm-agent.deb
+    fi
+    
+    /usr/bin/amazon-ssm-agent > ${LOG_DIR}/amazon-ssm-agent.log 2>&1 &
+
+    ps -ef | grep "amazon-ssm-agent" | grep -v "grep" | tr -s ' ' | cut -d ' ' -f2 > ${PIDFILE}
+    ;;
+
+  stop)
+    kill -9 `cat ${PIDFILE}`
+    rm -f ${PIDFILE}
+    ;;
+  *)
+    echo "Usage: amazon-ssm-agent_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0

@@ -1,0 +1,10 @@
+---
+name: amazon-ssm-agent
+
+templates:
+  bin/ctl.erb: bin/ctl
+
+packages:
+  - amazon-ssm-agent
+
+properties: {}
